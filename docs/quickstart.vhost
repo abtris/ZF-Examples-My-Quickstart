@@ -1,0 +1,11 @@
+<VirtualHost *:80>
+    ServerName quickstart
+        DocumentRoot /home/prskavecl/src/my-zf-quickstart/public
+        <Directory /home/prskavecl/src/my-zf-quickstart/public/>
+                AllowOverride All
+        </Directory>
+        ErrorLog /var/log/apache2/quickstart-error.log
+
+        LogLevel warn
+        CustomLog /var/log/apache2/quickstart-access.log combined
+</VirtualHost>
