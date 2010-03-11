@@ -1,43 +1,30 @@
-<style>
-    a:link,
-    a:visited
-    {
-        color: #0398CA;
+<?php
+if ($this->posts) {
+echo "<dl>";
+foreach ($this->posts as $i) {
+    echo "<dt>".$i->title."</dt>";
+    echo "<dd>".$i->content."</dd>";
+    if (Zend_Auth::getInstance()->hasIdentity()) {
+    echo "<dd><a href='/post/edit/id/".$i->id."'>Edit</a> | <a href='/post/delete/id/".$i->id."'>Delete</a></dd>";
     }
+    $com = new Application_Model_DbTable_Comments();
+    $comments = $com->getCommentbyPost($i->id);
+    if ($comments) {
 
-    span#zf-name
-    {
-        color: #91BE3F;
+        foreach ($comments as $j) {
+            echo "<dd class='comment'>".$j['comment'];
+            echo " <a href='/comment/reply/post/{$i->id}/id/".$j['id']."'>Reply this</a></dd>";
+            $replies = $com->getReply($j['id']);
+            foreach ($replies as $r) {
+                echo "<dd class='reply comment'>".$r['comment']."</dd>";
+            }
+        }
     }
+    echo "<dd><a href='/comment/add/id/".$i->id."'>New comment</a></dd>";
 
-    div#welcome
-    {
-        color: #FFFFFF;
-        background-image: url(http://framework.zend.com/images/bkg_header.jpg);
-        width:  600px;
-        height: 400px;
-        border: 2px solid #444444;
-        overflow: hidden;
-        text-align: center;
-    }
+}
+echo "</dl>";
 
-    div#more-information
-    {
-        background-image: url(http://framework.zend.com/images/bkg_body-bottom.gif);
-        height: 100%;
-    }
-</style>
-<div id="welcome">
-    <h1>Welcome to the <span id="zf-name">Zend Framework!</span></h1>
-
-    <h3>This is your project's main page</h3>
-
-    <div id="more-information">
-        <p><img src="http://framework.zend.com/images/PoweredBy_ZF_4LightBG.png" /></p>
-        <p>
-            Helpful Links: <br />
-            <a href="http://framework.zend.com/">Zend Framework Website</a> |
-            <a href="http://framework.zend.com/manual/en/">Zend Framework Manual</a>
-        </p>
-    </div>
-</div>
+} else {
+    echo "No posts available";
+}

@@ -1,1 +1,30 @@
-<br /><br /><center>View script for controller <b>Post</b> and script/action name <b>index</b></center>
+<?php
+if ($this->posts) {
+echo "<dl>";
+foreach ($this->posts as $i) {
+    echo "<dt>".$i->title."</dt>";
+    echo "<dd>".$i->content."</dd>";
+    if (Zend_Auth::getInstance()->hasIdentity()) {
+    echo "<dd><a href='/post/edit/id/".$i->id."'>Edit</a> | <a href='/post/delete/id/".$i->id."'>Delete</a></dd>";
+    }
+    $com = new Application_Model_DbTable_Comments();
+    $comments = $com->getCommentbyPost($i->id);
+    if ($comments) {
+
+        foreach ($comments as $j) {
+            echo "<dd class='comment'>".$j['comment'];
+            echo " <a href='/comment/reply/post/{$i->id}/id/".$j['id']."'>Reply this</a></dd>";
+            $replies = $com->getReply($j['id']);
+            foreach ($replies as $r) {
+                echo "<dd class='reply comment'>".$r['comment']."</dd>";
+            }
+        }
+    }
+    echo "<dd><a href='/comment/add/id/".$i->id."'>New comment</a></dd>";
+
+}
+echo "</dl>";
+
+} else {
+    echo "No posts available";
+}
