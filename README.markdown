@@ -68,3 +68,6 @@
     `resources.log.fb.writerName = "Firebug"`
     
     `resources.log.fb.writerParams.firebug`
+
+
+    Default user login: `test@test.com` and password `test`
