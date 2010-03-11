@@ -1,1 +1,68 @@
+<style>
+    body {
+        font-family: Verdana, Arial;
+        width: 800px;
+        margin: 0 auto;
+
+    }
+
+    #header ul {
+        list-style-type: none;
+    }
+
+    #header ul li {
+        float: left;
+        width: 10em;
+    }
+
+    #content {
+        min-height: 300px;
+    }
+
+    #content dt {
+        font-size: 110%;
+        font-weight: bold;
+    }
+
+    #content dd {
+        padding: 5px;
+    }
+
+    #content dd.comment {
+        font-style: italic;
+        font-size: 90%;
+        border: 1px solid gray;
+        padding: 5px;
+    }
+
+    #content dd.reply { padding-left: 3em; }
+
+    #content dd.comment a {
+        float: right;
+    }
+    #footer {
+        font-size: 80%;
+        text-align: right;
+    }
+
+    .clear { clear: both; }
+</style>
+<div id="header">
+<ul>
+<?php if (Zend_Auth::getInstance()->hasIdentity()) { ?>
+    <li><a href="/">Home</a></li>
+    <li><a href="/post/add">New Post</a></li>
+    <li><a href="/auth/logout">Logout</a></li>
+<?php } else { ?>
+    <li><a href="/">Home</a></li>
+    <li><a href="/auth/login">Login</a></li>
+<?php } ?>
+</ul>
+ <br class="clear" />
+</div>
+<div id="content">
 <?php echo $this->layout()->content; ?>
+</div>
+<div id="footer">
+    2010 &copy; Powered by Zend Framework <?php echo Zend_Version::VERSION; ?>
+</div>
