@@ -22,3 +22,20 @@
    zf create action reply comment 1
    zf create action edit comment 1
    zf create action delete comment 1
+
+4. SetUp Database connection (pgsql, mysql)
+
+   run sql script docs/createTables.sql
+   $ mysql -u root -p <createTables.sql
+
+5. Create Models (user, post, comment)
+
+    zf create db-table.from-database
+
+    add models methods
+
+6. Create Forms (login, post, comment)
+
+    zf create form login
+    zf create form post
+    zf create form comment
