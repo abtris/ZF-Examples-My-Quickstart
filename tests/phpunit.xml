@@ -1,0 +1,27 @@
+<phpunit bootstrap="./application/bootstrap.php"  colors="true">
+    <testsuite name="my-zf-quickstart">
+        <directory>./</directory>
+    </testsuite>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">../application/</directory>
+            <exclude>
+                <file>../application/Bootstrap.php</file>
+                <directory suffix=".phtml">../application/</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+
+
+    <logging>
+
+        <log type="coverage-html" target="./logs/report" charset="UTF-8"
+            yui="true" highlight="true" lowUpperBound="50" highLowerBound="80"/>
+        <log type="coverage-xml" target="./logs/coverage.xml"/>
+        <log type="pmd-xml" target="./logs/pmd.xml" cpdMinLines="5" cpdMinMatches="70"/>
+        <log type="junit" target="./logs/logfile.xml" logIncompleteSkipped="true"/>
+        <log type="tap" target="./logs/logfile.tap"/>
+        <log type="testdox-html" target="./logs/testdox.html" />
+        <log type="testdox-text" target="./logs/testdox.txt"/>
+        </logging>
+</phpunit>
